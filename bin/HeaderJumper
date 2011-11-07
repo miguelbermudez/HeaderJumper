@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby -wKU
+require_relative '../lib/HeaderJumper/Runner'
+  
+runner = HeaderJumper::Runner.new(ARGV)
+runner.run
