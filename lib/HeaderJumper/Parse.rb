@@ -10,7 +10,7 @@ require "rubygems"
   
   class Parse
     
-    DEFAULT_LAYOUT = "./public/page.erb"
+    DEFAULT_LAYOUT = "../public/page.erb"
     
     attr_accessor :keywords, :template, :layout
     attr_reader :filename, :sections
@@ -20,6 +20,7 @@ require "rubygems"
       @sections = Array.new
       @keywords = Array.new
       @layout = File.read(DEFAULT_LAYOUT)
+
       parse_file(@filename)
     end
     
@@ -62,7 +63,8 @@ require "rubygems"
 
             #if line.match(Regexp.new('^class'))
             #if line.match(Regexp.new('^class\s+\w+|<(\w+)>'))
-            if line.match(/<([[:word:]]+)/) || line.match(/<([[:word:]]+)/)
+            #if line.match(/^class\s+([[:word:]]+)/) || line.match(/<([[:word:]]+)/)
+            if line.match(/^class\s+([[:word:]]+)/)
               keyword = $1
               @keywords.push(keyword) if @keywords.include?(keyword) == false
               #puts @keywords.inspect #debugging

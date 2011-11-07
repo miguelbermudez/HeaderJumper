@@ -17,15 +17,14 @@
 			<% for @section in @parsed_obj.sections %>
 		      	<section class="section">
 					<div class="comments">
-						<p><%= @section.docs %><p>
-					</div>
+						<p><%= @section.docs %></p>
+					</div> <!-- .comments -->
 					
 					<div class="code">
-						<pre><%= h(@section.code) %>
-				</section>
+						<pre><%= h(@section.code) %></pre>
+					</div> <!-- .code -->
+				</section> <!-- .section -->
 		    <% end %>
-			
-		
 		</div><!-- /#content -->
 
 	</body>

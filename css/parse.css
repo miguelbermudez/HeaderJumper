@@ -13,6 +13,10 @@ a {
   a:visited {
     color: #261a3b;
   }
+  a.keyword {
+	background: #b7f0fd;
+	padding: 2px;
+  }
 p {
   margin: 0 0 15px 0;
 }
