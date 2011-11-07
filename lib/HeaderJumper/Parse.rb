@@ -12,13 +12,13 @@ require "rubygems"
     
     DEFAULT_LAYOUT = "./public/page.erb"
     
-    attr_accessor :sections, :keywords, :template, :class_items, :layout
-    attr_reader :filename
+    attr_accessor :keywords, :template, :layout
+    attr_reader :filename, :sections
     
     def initialize(filename)
       @filename = filename
       @sections = Array.new
-      @class_items = Array.new
+      @keywords = Array.new
       @layout = File.read(DEFAULT_LAYOUT)
       parse_file(@filename)
     end
@@ -60,21 +60,13 @@ require "rubygems"
 
             has_code = true
 
-            if line.match(Regexp.new('^class'))
-              words = line.split
-              @class_items.push(words[1])
-              #puts @class_items.inspect
-              #puts line  #print each line #debugging
+            #if line.match(Regexp.new('^class'))
+            #if line.match(Regexp.new('^class\s+\w+|<(\w+)>'))
+            if line.match(/<([[:word:]]+)/) || line.match(/<([[:word:]]+)/)
+              keyword = $1
+              @keywords.push(keyword) if @keywords.include?(keyword) == false
+              #puts @keywords.inspect #debugging
             end
-
-            #add hyperlink code
-            #$class_items.each_with_index do |classItem, index|
-              #anchor link for class
-            #  classLink = '<a href="' + classItem + '.html"' + "<\/a>" 
-            #  subPattern = Regexp.new(classItem)
-            #  line.sub!(subPattern, classLink)
-            #  puts line
-            #end
 
             code_text += line + "\n"
             #code_text += line

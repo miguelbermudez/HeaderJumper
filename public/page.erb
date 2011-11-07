@@ -14,7 +14,7 @@
 		</header>
 
 		<div id= "content">	
-			<% for @section in @sections %>
+			<% for @section in @parsed_obj.sections %>
 		      	<section class="section">
 					<div class="comments">
 						<p><%= @section.docs %><p>
