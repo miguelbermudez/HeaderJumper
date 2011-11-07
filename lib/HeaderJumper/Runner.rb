@@ -4,7 +4,7 @@ require_relative 'HeaderHtmlPage'
 module HeaderJumper
   class Runner
         
-    attr_accessor :objs_to_parse, :parsed_objs
+    #attr_accessor :objs_to_parse, :parsed_objs
 
     def initialize(argv)
       @files_to_parse = Array.new

@@ -5,13 +5,14 @@ require "nokogiri"
 class HeaderHtmlPage
   
   include ERB::Util
-  attr_accessor :template, :parsed_obj, :date
+  #attr_accessor :template, :parsed_obj, :date
   
   def initialize(parsed_obj, date=Time.now)
     @date = date
     @parsed_obj = parsed_obj
     @template = @parsed_obj.layout
     @title = @parsed_obj.filename.split('/').last
+    @sections = @parsed_obj.sections
   end
   
   def render()
