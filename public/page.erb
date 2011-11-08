@@ -1,31 +1,31 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title><%= @title %></title>
-		<link rel="stylesheet" href="" />
-		<link href="css/reset.css" media="screen" rel="stylesheet" type="text/css" media="screen, projection" />
-		<link href="css/parse.css" media="screen" rel="stylesheet" type="text/css" media="screen, projection" />
-		<link href='http://fonts.googleapis.com/css?family=Gentium+Basic:400,700' rel='stylesheet' type='text/css'>
-	</head>
-	
-	<body>
-		<header>
-			<h1><%= @title %></h1>
-		</header>
+    <head>
+        <title><%= @title %></title>
+        <link rel="stylesheet" href="" />
+        <link href="css/reset.css" media="screen" rel="stylesheet" type="text/css" media="screen, projection" />
+        <link href="css/parse.css" media="screen" rel="stylesheet" type="text/css" media="screen, projection" />
+        <link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'>
+    </head>
+    
+    <body>
+        <header>
+            <h1><%= @title %></h1>
+        </header>
 
-		<div id= "content">	
-			<% for @section in @parsed_obj.sections %>
-		      	<section class="section">
-					<div class="comments">
-						<p><%= @section.docs %></p>
-					</div> <!-- .comments -->
-					
-					<div class="code">
-						<pre><%= h(@section.code) %></pre>
-					</div> <!-- .code -->
-				</section> <!-- .section -->
-		    <% end %>
-		</div><!-- /#content -->
+        <div id= "content" class="row"> 
+            <% for @section in @parsed_obj.sections %>
+                <section class="section grid_10">
+                    <div class="comments">
+                        <p><%= @section.docs %></p>
+                    </div> <!-- .comments -->
+                    
+                    <div class="code">
+                        <pre><%= h(@section.code) %></pre>
+                    </div> <!-- .code -->
+                </section> <!-- .section -->
+            <% end %>
+        </div><!-- /#content -->
 
-	</body>
+    </body>
 </html>

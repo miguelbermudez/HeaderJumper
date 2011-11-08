@@ -1,10 +1,14 @@
 /*--------------------- Layout and Typography ----------------------------*/
 body {
-  /*font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;*/
-  font-family: 'Gentium Basic', 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
-  font-size: 15px;
-  line-height: 22px;
-  color: #252519;
+  background: #4B494B;
+  color: #F9F8F9;
+  font-family: 'Terminal Dosis','Helvetica','Arial',sans-serif;
+  /*font-family: 'Gentium Basic', 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;*/
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5em;
+  /*color: #252519;*/
+
   margin: 0; padding: 0;
 }
 a {
@@ -24,53 +28,53 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0px 0 15px 0;
 }
   h1 {
+    font-family: 'Helveitca', sans-serif;
     margin-left: 25px;
-	padding-top: 40px;
-  }
+    padding-top: 40px;
+    }
 
 header {
-	background: #80e6fd;
+	/*background: #80e6fd;*/
+	border-bottom: 1px solid #80E6FD;
 	height: 100px;
 	}
 
 
 .comments {
-	background: #d9d9e8;    
+	/*background: #d9d9e8;    */
+	/*margin-bottom: 2em;*/
 	/*max-width: 450px;*/
-    min-width: 450px;
+	min-width: 450px;
     min-height: 5px;
-    /*padding: 10px 25px 1px 50px;*/
     overflow-x: hidden;
-    vertical-align: top;
-    text-align: left;
-	margin-bottom: 2em;
+    /*padding: 10px 25px 1px 50px;*/
+	text-align: left;
+	vertical-align: top;
 	width: 100%;
  }
     .comments p {
-		font-size: 15px;
-		line-height: 1.75;
-		max-width: 33em;
-		margin-left: 50px;
-		padding-top: 20px;
-
-	}
+		color: #A2D5E0;
+		max-width: 43em;
+		margin: 0;
+	    }
 	.comments pre {
-      margin: 15px 0 15px;
-      padding-left: 15px;
-    }
+        margin: 15px 0 15px;
+        padding-left: 15px;
+        }
 	.comments p tt, .comments p code {
-	      background: #f8f8ff;
-	      border: 1px solid #dedede;
-	      font-size: 12px;
-	      padding: 0 0.2em;
+	    background: #f8f8ff;
+        border: 1px solid #dedede;
+        font-size: 12px;
+	    padding: 0 0.2em;
 	    }
 
 
 pre, tt, code {
-  font-size: 12px; line-height: 18px;
-  font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
-  margin: 0; padding: 0;
-}
+    color: #f9f8f9;
+    font-size: 12px; line-height: 18px;
+    font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
+        margin: 0; padding: 0;
+    }
 
 #content {
 	/*margin: 0 50px 0 25px;*/
@@ -78,9 +82,41 @@ pre, tt, code {
 	}
 
 div.code {
-	margin: 2em 0 2em 50px;
+	margin: 0.5em 0 0.5em 50px;
+	}
+	
+.section {
+	margin-top: 1em;
 	}
 
+
+/*---------------------- 10Col Grid 1k grid system -----------------------------*/
+.grid_1 {width: 60px;}
+.grid_2 {width: 140px;}
+.grid_3 {width: 220px;}
+.grid_4 {width: 300px;}
+.grid_5 {width: 380px;}
+.grid_6 {width: 460px;}
+.grid_7 {width: 540px;}
+.grid_8 {width: 620px;}
+.grid_9 {width: 700px;}
+.grid_10 {width: 780px;}
+.column { 
+	margin: 0 10px 0 10px;
+    overflow: hidden;
+    float: left;
+    display: inline;
+	}
+.row {
+	width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+	}
+.row .row {
+	margin: 0 -10px 0 -10px;
+    width: auto;
+    display: inline-block;
+	}
 
 /*---------------------- Syntax Highlighting -----------------------------*/
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }

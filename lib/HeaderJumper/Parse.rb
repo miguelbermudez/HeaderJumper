@@ -10,7 +10,7 @@ require "rubygems"
   
   class Parse
     
-    DEFAULT_LAYOUT = "../public/page.erb"
+    DEFAULT_LAYOUT = "./public/page.erb"
     
     attr_accessor :keywords, :template, :layout
     attr_reader :filename, :sections
@@ -45,7 +45,8 @@ require "rubygems"
               has_code = false
             end
 
-            docs_text += line.sub(comment_matcher, '') + "\n"
+            #docs_text += line.sub(comment_matcher, '') + "\n"
+            docs_text += line.sub(comment_matcher, '')
           else
             #remove tabs
             #line.gsub!("\t", "")

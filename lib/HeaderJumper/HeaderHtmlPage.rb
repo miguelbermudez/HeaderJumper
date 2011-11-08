@@ -6,7 +6,7 @@ require "CGI"
 class HeaderHtmlPage
 
   include ERB::Util
-  attr_accessor :filename
+  attr_reader :filename
   
   def initialize(parsed_obj, date=Time.now)
     @date = date
@@ -24,22 +24,23 @@ class HeaderHtmlPage
   end
 
   def savePage(file)
-    #puts "FILE TO SAVE: #{file}"
+    puts "\tFILE TO SAVE: #{file}" #set full path filename
     File.open(file, "w+") do |f|
       f.write(render)
     end
   end
   
     
-  def keywordPass(kw, all_keywords)
-      #puts "KEYWORD FILE TO SAVE: #{k2}"
-      f = File.open(@filename, "r")
+  def keywordPass(html_to_open, html_to_save, all_keywords)
+      puts "\tHTML FILE TO OPEN: #{html_to_open}"
+      puts "\tKEYWORD_HTML TO SAVE: #{html_to_save}"
+      f = File.open(html_to_open, "r")
       doc = Nokogiri::HTML(f)
       f.close
       
       #@parsed_obj.keywords.each do |keyword|
       all_keywords.each do |keyword|
-        classLink = '<a class="keyword" href="' + keyword + '.h_keyword.html">' + keyword + "<\/a>"   
+        classLink = '<a class="keyword" href="' + keyword + '.h.html">' + keyword + "<\/a>"   
         #get each pre node
         doc.xpath('//pre').each do |node|
           #empty string to hold sub'd html lines
@@ -59,6 +60,6 @@ class HeaderHtmlPage
       end #keywords.eac
 
     #save new file
-    File.open(kw, 'w') { |kf| kf.write(CGI.unescapeHTML(doc.to_html))}
+    File.open(html_to_save, 'w') { |kf| kf.write(CGI.unescapeHTML(doc.to_html))}
   end #keywordPass
 end
