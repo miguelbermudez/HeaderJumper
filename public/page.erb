@@ -12,6 +12,15 @@
         <header>
             <h1><%= @title %></h1>
         </header>
+        
+        <div id="index">
+            <ul>
+                <li class="indexHeader"><h3>index</h3></li>
+                <% for @keyword in @all_keywords %>
+                    <li><a href="<%="#{@keyword}.h.html"%>"><%=@keyword%></a></li>
+                <% end %>
+            </ul>
+        </div> <!-- #index -->
 
         <div id= "content" class="row"> 
             <% for @section in @parsed_obj.sections %>

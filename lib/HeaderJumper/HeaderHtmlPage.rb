@@ -14,6 +14,7 @@ class HeaderHtmlPage
     @filename = "#{parsed_obj.filename}.html"
     @template = @parsed_obj.layout
     @title = @parsed_obj.filename.split('/').last
+    @all_keywords = Array.new
     #@keywords = @parsed_obj.keywords
     puts "FILE: #{@parsed_obj.filename}"
     puts "\tKEYWORDS: #{@parsed_obj.keywords.inspect}"
@@ -24,7 +25,7 @@ class HeaderHtmlPage
   end
 
   def savePage(file)
-    puts "\tFILE TO SAVE: #{file}" #set full path filename
+    puts "\t\t1ST PASS - FILE TO SAVE: #{file}" #set full path filename
     File.open(file, "w+") do |f|
       f.write(render)
     end
@@ -32,8 +33,8 @@ class HeaderHtmlPage
   
     
   def keywordPass(html_to_open, html_to_save, all_keywords)
-      puts "\tHTML FILE TO OPEN: #{html_to_open}"
-      puts "\tKEYWORD_HTML TO SAVE: #{html_to_save}"
+      puts "+ HTML FILE TO OPEN: #{html_to_open}"
+      puts "\t- KEYWORD_HTML TO SAVE: #{html_to_save}\n\n"
       f = File.open(html_to_open, "r")
       doc = Nokogiri::HTML(f)
       f.close
@@ -41,6 +42,22 @@ class HeaderHtmlPage
       #@parsed_obj.keywords.each do |keyword|
       all_keywords.each do |keyword|
         classLink = '<a class="keyword" href="' + keyword + '.h.html">' + keyword + "<\/a>"   
+        
+        
+        #populate index
+        div_index = doc.xpath('//*[@id="index"]/ul')
+  
+        
+        keyword_li = Nokogiri::XML::Node.new "li", doc
+        
+        keyword_link = Nokogiri::XML::Node.new "a", doc
+        keyword_link['href'] = "#{keyword}.h.html"
+        keyword_link.content = "#{keyword}.h"
+
+        keyword_link.parent = keyword_li
+        
+        div_index.at_css('ul').add_child(keyword_li)
+        
         #get each pre node
         doc.xpath('//pre').each do |node|
           #empty string to hold sub'd html lines

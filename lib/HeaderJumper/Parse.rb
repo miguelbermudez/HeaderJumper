@@ -33,7 +33,6 @@ require "rubygems"
       docs_text = code_text = '';
       has_code = false
       
-      
       if @filename
         code  =  IO.readlines(@filename)
         code.each_with_index do |line, index|
@@ -83,7 +82,5 @@ require "rubygems"
       aSection = Section.new(docs, code)
       @sections << aSection        
     end
-       
-      
 
   end

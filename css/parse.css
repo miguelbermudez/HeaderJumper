@@ -30,13 +30,22 @@ h1, h2, h3, h4, h5, h6 {
   h1 {
     font-family: 'Helveitca', sans-serif;
     margin-left: 25px;
-    padding-top: 40px;
+    padding-top: 30px;
     }
 
 header {
 	/*background: #80e6fd;*/
+    background: url("diagonal-noise-ntrans.png") repeat scroll 0 0 transparent;
 	border-bottom: 1px solid #80E6FD;
-	height: 100px;
+	height: 80px;
+    /*position: relative;*/
+    position: fixed;
+    top: 0;
+	width: 100%;
+	z-index: 999;
+	-moz-box-shadow: 0 8px 8px #333;
+    -webkit-box-shadow: 0 8px 8px #333;
+	box-shadow: 0 8px 8px #333;
 	}
 
 
@@ -77,9 +86,34 @@ pre, tt, code {
     }
 
 #content {
-	/*margin: 0 50px 0 25px;*/
 	/*width: 600px;*/
+	margin: 100px auto 0 280px;
+	position: relative;
+	z-index: 10;
 	}
+
+#index {
+    border-right: 1px solid #80E6FD;
+    float: left;
+    height: 100%;
+    margin-right: 20px;
+    overflow: scroll;
+    position: fixed;
+    top: 0;
+    width: 200px;
+    z-index: 20;
+    }
+    #index ul {
+        list-style: none;
+        margin-top: 100px;
+        }
+        #index ul .indexHeader {
+            color: #80e6fd;
+            }
+        #index ul a {
+            color: #f9f8f9;
+            text-decoration: none;
+            }
 
 div.code {
 	margin: 0.5em 0 0.5em 50px;

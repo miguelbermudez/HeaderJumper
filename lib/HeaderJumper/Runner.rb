@@ -7,8 +7,8 @@ module HeaderJumper
     #attr_accessor :objs_to_parse, :parsed_objs
     attr_accessor :all_keywords
     
-    TEMP_FILE_PATH = "./tmp/"
-    KEY_FILE_PATH = "./html/"
+    TEMP_FILE_PATH = "#{Dir.pwd}/tmp/"
+    KEY_FILE_PATH = "#{Dir.pwd}/html/"
 
     def initialize(argv)
       @files_to_parse = Array.new
@@ -35,19 +35,24 @@ module HeaderJumper
       end
       
       @parsed_objs.each do |obj|
-        htmlFile  = "#{TEMP_FILE_PATH}#{obj.filename}.html"
-        #htmlFileForKeywords = "#{obj.filename}_keyword.html"
+        just_filename = obj.filename.split('/').last;
+        #htmlFile  = "#{TEMP_FILE_PATH}#{obj.filename}.html"
+        htmlFile  = "#{TEMP_FILE_PATH}#{just_filename}.html"
         headerPage = HeaderHtmlPage.new(obj)
         headerPage.savePage(htmlFile);
         @all_keywords += obj.keywords
         @html_pages << headerPage
       end #parsed_objs.each
       
+      puts "\n\nBEGIN 2ND PASS ON HTML FILES ..."
+      
       #2nd pass for keywords
       @html_pages.each do |htmlpage|
-        html_to_read = "#{TEMP_FILE_PATH}#{htmlpage.filename}"
-        just_filename = htmlpage.filename.split('/').last;
+        just_filename = htmlpage.filename.split('/').last
+                
+        html_to_read = "#{TEMP_FILE_PATH}#{just_filename}"
         html_to_save = "#{KEY_FILE_PATH}#{just_filename}"
+        
         htmlpage.keywordPass(html_to_read, html_to_save, @all_keywords)
       end
       
