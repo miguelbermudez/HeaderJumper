@@ -40,12 +40,25 @@ module HeaderJumper
         htmlFile  = "#{TEMP_FILE_PATH}#{just_filename}.html"
         headerPage = HeaderHtmlPage.new(obj)
         headerPage.savePage(htmlFile);
-        @all_keywords += obj.keywords
+        
+        #only add keywords if they are not already accountanted for 
+        obj.keywords.each do |obj_keyword|
+          if @all_keywords.include?(obj_keyword) == false
+            #puts "\t\tAdding keyword: #{obj_keyword}"
+            @all_keywords << obj_keyword
+          end
+          #@all_keywords += obj.keywords
+        end
+        
         @html_pages << headerPage
       end #parsed_objs.each
       
-      puts "\n\nBEGIN 2ND PASS ON HTML FILES ..."
+      #sort keywords by length of work (longest first)
+      @all_keywords.sort! { |x,y| y.length <=> x.length }
+      puts "\n\n*** SORTING ALL KEYWORDS: "+@all_keywords.inspect + " *** "
       
+      
+      puts "\t\tBEGIN 2ND PASS ON HTML FILES ..."
       #2nd pass for keywords
       @html_pages.each do |htmlpage|
         just_filename = htmlpage.filename.split('/').last

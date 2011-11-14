@@ -26,7 +26,12 @@
             <% for @section in @parsed_obj.sections %>
                 <section class="section grid_10">
                     <div class="comments">
-                        <p><%= @section.docs %></p>
+                        <% @comments = @section.docs.split("\n") 
+                           for @comment in @comments
+                        %>
+
+                            <p><%=@comment%></p>
+                        <% end %>
                     </div> <!-- .comments -->
                     
                     <div class="code">

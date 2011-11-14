@@ -15,7 +15,7 @@ class HeaderHtmlPage
     @template = @parsed_obj.layout
     @title = @parsed_obj.filename.split('/').last
     @all_keywords = Array.new
-    #@keywords = @parsed_obj.keywords
+    
     puts "FILE: #{@parsed_obj.filename}"
     puts "\tKEYWORDS: #{@parsed_obj.keywords.inspect}"
   end
@@ -33,16 +33,16 @@ class HeaderHtmlPage
   
     
   def keywordPass(html_to_open, html_to_save, all_keywords)
-      puts "+ HTML FILE TO OPEN: #{html_to_open}"
-      puts "\t- KEYWORD_HTML TO SAVE: #{html_to_save}\n\n"
+      #puts "\t\tALL KEYWORDS: #{all_keywords}"
+      puts "\t\t\t+ HTML FILE TO OPEN: #{html_to_open}"
+      puts "\t\t\t\t- KEYWORD_HTML TO SAVE: #{html_to_save}\n"
       f = File.open(html_to_open, "r")
       doc = Nokogiri::HTML(f)
       f.close
       
-      #@parsed_obj.keywords.each do |keyword|
       all_keywords.each do |keyword|
         classLink = '<a class="keyword" href="' + keyword + '.h.html">' + keyword + "<\/a>"   
-        
+        #puts "\t\tKEYWORD LINK: #{classLink}" #debugging
         
         #populate index
         div_index = doc.xpath('//*[@id="index"]/ul')
@@ -67,7 +67,9 @@ class HeaderHtmlPage
   
           #loop through each line of text
           text.each_line do |ln|
-            ln.sub!(Regexp.new(keyword), classLink)
+            
+            keywordRegex = Regexp.new('\b'+keyword+'\b');
+            ln.sub!(keywordRegex, classLink)
             replacementString += ln
           end #text.each
           

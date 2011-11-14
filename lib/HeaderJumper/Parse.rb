@@ -39,13 +39,15 @@ require "rubygems"
           if comment_matcher.match(line) and !comment_filter.match(line) 
             if has_code
               save_section(docs_text, code_text)
+              
+              #reset docs and code
               docs_text = code_text = ''
-
               has_code = false
             end
 
             #docs_text += line.sub(comment_matcher, '') + "\n"
             docs_text += line.sub(comment_matcher, '')
+
           else
             #remove tabs
             #line.gsub!("\t", "")
@@ -61,9 +63,6 @@ require "rubygems"
 
             has_code = true
 
-            #if line.match(Regexp.new('^class'))
-            #if line.match(Regexp.new('^class\s+\w+|<(\w+)>'))
-            #if line.match(/^class\s+([[:word:]]+)/) || line.match(/<([[:word:]]+)/)
             if line.match(/^class\s+([[:word:]]+)/)
               keyword = $1
               @keywords.push(keyword) if @keywords.include?(keyword) == false
@@ -73,12 +72,15 @@ require "rubygems"
             code_text += line + "\n"
             #code_text += line
           end
+          
+          
         end
       end
     end
       
    
     def save_section(docs, code)
+      #puts "DOCS: #{docs}\n\tCODE: #{code}" #debugging
       aSection = Section.new(docs, code)
       @sections << aSection        
     end
