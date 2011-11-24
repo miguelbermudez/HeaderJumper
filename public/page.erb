@@ -16,8 +16,8 @@
         <div id="index">
             <ul>
                 <li class="indexHeader"><h3>index</h3></li>
-                <% for @keyword in @all_keywords %>
-                    <li><a href="<%="#{@keyword}.h.html"%>"><%=@keyword%></a></li>
+                <% for keyword in @all_keywords %>
+                    <li><a href="<%="#{keyword.word}.h.html"%>"><%=keyword.word%></a></li>
                 <% end %>
             </ul>
         </div> <!-- #index -->

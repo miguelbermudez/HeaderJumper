@@ -41,21 +41,26 @@ class HeaderHtmlPage
       f.close
       
       all_keywords.each do |keyword|
-        classLink = '<a class="keyword" href="' + keyword + '.h.html">' + keyword + "<\/a>"   
-        #puts "\t\tKEYWORD LINK: #{classLink}" #debugging
-        
+                
         #populate index
         div_index = doc.xpath('//*[@id="index"]/ul')
-  
         
         keyword_li = Nokogiri::XML::Node.new "li", doc
-        
         keyword_link = Nokogiri::XML::Node.new "a", doc
-        keyword_link['href'] = "#{keyword}.h.html"
-        keyword_link.content = "#{keyword}.h"
-
-        keyword_link.parent = keyword_li
         
+        if keyword.is_multi_class_member == false 
+          keyword_link['href'] = "#{keyword.word}.h.html"
+          keyword_link.content = "#{keyword.word}.h"          
+        else 
+          keyword_link['href'] = "#{keyword.origin}.html"
+          classLink = '<a class="keyword" href="' + keyword.origin + '.html">' + keyword.word + "<\/a>"   
+          keyword_link.content = "#{keyword.word}"
+          
+          
+        end
+        classLink = '<a class="keyword" href="' + keyword.word + '.h.html">' + keyword.word + "<\/a>"   
+        #keyword_link.content = "#{keyword.word}.h"
+        keyword_link.parent = keyword_li
         div_index.at_css('ul').add_child(keyword_li)
         
         #get each pre node
@@ -67,8 +72,10 @@ class HeaderHtmlPage
   
           #loop through each line of text
           text.each_line do |ln|
-            
-            keywordRegex = Regexp.new('\b'+keyword+'\b');
+            #puts "CLASSLINK: #{classLink}"
+            #puts "\tTEXTLINE: #{ln}"
+            #keywordRegex = Regexp.new('\b'+"#{keyword.word}"+'\b')
+            keywordRegex = Regexp.new('\s+'+"#{keyword.word}")
             ln.sub!(keywordRegex, classLink)
             replacementString += ln
           end #text.each

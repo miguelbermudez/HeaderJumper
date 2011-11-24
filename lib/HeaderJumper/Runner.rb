@@ -27,6 +27,14 @@ module HeaderJumper
       end
     end
     
+    def contains_keyword (keyword)
+      @all_keywords.each do |k|
+        if k.word == keyword
+          return true
+        end
+      end
+      return false
+    end
 
     def run
       @files_to_parse.each do |file|
@@ -36,29 +44,30 @@ module HeaderJumper
       
       @parsed_objs.each do |obj|
         just_filename = obj.filename.split('/').last;
-        #htmlFile  = "#{TEMP_FILE_PATH}#{obj.filename}.html"
         htmlFile  = "#{TEMP_FILE_PATH}#{just_filename}.html"
         headerPage = HeaderHtmlPage.new(obj)
         headerPage.savePage(htmlFile);
         
         #only add keywords if they are not already accountanted for 
         obj.keywords.each do |obj_keyword|
-          if @all_keywords.include?(obj_keyword) == false
+          #if @all_keywords.include?(obj_keyword) == false
             #puts "\t\tAdding keyword: #{obj_keyword}"
-            @all_keywords << obj_keyword
-          end
-          #@all_keywords += obj.keywords
+            if contains_keyword(obj_keyword) == false
+              @all_keywords << obj_keyword
+            end
+          #end
         end
         
         @html_pages << headerPage
       end #parsed_objs.each
       
       #sort keywords by length of work (longest first)
-      @all_keywords.sort! { |x,y| y.length <=> x.length }
-      puts "\n\n*** SORTING ALL KEYWORDS: "+@all_keywords.inspect + " *** "
+      puts "\n*** SORTING ALL KEYWORDS: "+@all_keywords.inspect + " ***"
+      @all_keywords.sort! { |x,y| y.word.length <=> x.word.length }
+      #puts @all_keywords.inspect
       
       
-      puts "\t\tBEGIN 2ND PASS ON HTML FILES ..."
+      puts "\n\t\tBEGIN 2ND PASS ON HTML FILES ..."
       #2nd pass for keywords
       @html_pages.each do |htmlpage|
         just_filename = htmlpage.filename.split('/').last

@@ -1,4 +1,5 @@
 require "rubygems"
+require_relative "PotionKeyword"
   
   class Section
     attr_accessor :docs, :code
@@ -34,6 +35,11 @@ require "rubygems"
       has_code = false
       
       if @filename
+         #get file as one string for class detecting
+         f = File.new(@filename)
+         text = f.read
+         f.close
+        
         code  =  IO.readlines(@filename)
         code.each_with_index do |line, index|
           if comment_matcher.match(line) and !comment_filter.match(line) 
@@ -64,9 +70,16 @@ require "rubygems"
             has_code = true
 
             if line.match(/^class\s+([[:word:]]+)/)
+              #puts "CLASS #: #{class_count}"
+              
               keyword = $1
-              @keywords.push(keyword) if @keywords.include?(keyword) == false
-              #puts @keywords.inspect #debugging
+              pKeyword = PotionKeyword.new(keyword)
+              pKeyword.origin = @filename.split('/').last
+              pKeyword.is_multi_class_member = true if text.scan(/class/).length > 1
+              
+              #@keywords.push(pKeyword) if @keywords.include?(pKeyword.word) == false
+              @keywords << pKeyword if contains_keyword(pKeyword.word) == false
+              #puts @keywords.inspect + "\n" #debugging
             end
 
             code_text += line + "\n"
@@ -84,5 +97,15 @@ require "rubygems"
       aSection = Section.new(docs, code)
       @sections << aSection        
     end
+    
+    def contains_keyword (keyword)
+      @keywords.each do |k|
+        if k.word == keyword
+          return true
+        end
+      end
+      return false
+    end
+    
 
   end
