@@ -9,37 +9,41 @@
     </head>
     
     <body>
-        <header>
+        <!-- <header>
             <h1><%= @title %></h1>
-        </header>
-        
-        <div id="index">
-            <ul>
-                <li class="indexHeader"><h3>index</h3></li>
-                <% for keyword in @all_keywords %>
-                    <li><a href="<%="#{keyword.word}.h.html"%>"><%=keyword.word%></a></li>
-                <% end %>
-            </ul>
-        </div> <!-- #index -->
+        </header> -->
+        <div id="main" class="clearfix">
+            <div id="index" class="clearfix">
+                <h3 class="indexHeader">index</h3>
+                <ul>
+                    <% for keyword in @master_list_ref.keywords.sort { |a,b| a.word.downcase <=> b.word.downcase} %>
+                        <li><a href="<%="#{keyword.origin}.html"%>"><%=keyword.word%></a></li>
+                    <% end %>
+                </ul>
+            </div> <!-- #index -->
 
-        <div id= "content" class="row"> 
-            <% for @section in @parsed_obj.sections %>
-                <section class="section grid_10">
-                    <div class="comments">
-                        <% @comments = @section.docs.split("\n") 
-                           for @comment in @comments
-                        %>
+            <div id="content" class="row clearfix"> 
+                <h3 class="title"><%= @title %></h3>
+                <div class="container"
+                    <% for @section in @parsed_obj.sections %>
+                        <section class="section grid_10">
+                            <div class="comments">
+                                <% @comments = @section.docs.split("\n") 
+                                   for @comment in @comments
+                                %>
 
-                            <p><%=@comment%></p>
-                        <% end %>
-                    </div> <!-- .comments -->
-                    
-                    <div class="code">
-                        <pre><%= h(@section.code) %></pre>
-                    </div> <!-- .code -->
-                </section> <!-- .section -->
-            <% end %>
-        </div><!-- /#content -->
+                                    <p><%=@comment%></p>
+                                <% end %>
+                            </div> <!-- .comments -->
+                            
+                            <div class="code">
+                                <pre><%= h(@section.code) %></pre>
+                            </div> <!-- .code -->
+                        </section> <!-- .section -->
+                    <% end %>
+                </div> <!-- .container -->
+            </div><!-- /#content -->
+        </div><!-- #main -->
 
     </body>
 </html>

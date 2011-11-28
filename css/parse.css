@@ -1,6 +1,7 @@
 /*--------------------- Layout and Typography ----------------------------*/
+html, body { height: 100%; width: 100%;}
 body {
-  background: #4B494B;
+  background: #fff;
   color: #F9F8F9;
   font-family: 'Terminal Dosis','Helvetica','Arial',sans-serif;
   /*font-family: 'Gentium Basic', 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;*/
@@ -18,9 +19,17 @@ a {
     color: #261a3b;
   }
   a.keyword {
-	background: #b7f0fd;
-	padding: 2px;
+  border-bottom: 1px dashed #5cdffd;
+  color: #b7f0fd;
+  padding-bottom: 3px;
+  text-decoration: none;
   }
+  a.keyword:hover {
+    border-bottom: 1px dashed #eb2d7c;
+    color: #fff;
+    padding-bottom: 3px;  
+    }
+  
 p {
   margin: 0 0 15px 0;
 }
@@ -34,94 +43,152 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 header {
-	/*background: #80e6fd;*/
+  /*background: #80e6fd;*/
     background: url("diagonal-noise-ntrans.png") repeat scroll 0 0 transparent;
-	border-bottom: 1px solid #80E6FD;
-	height: 80px;
+  border-bottom: 1px solid #80E6FD;
+  height: 80px;
     /*position: relative;*/
     position: fixed;
     top: 0;
-	width: 100%;
-	z-index: 999;
-	-moz-box-shadow: 0 8px 8px #333;
+  width: 100%;
+  z-index: 999;
+  -moz-box-shadow: 0 8px 8px #333;
     -webkit-box-shadow: 0 8px 8px #333;
-	box-shadow: 0 8px 8px #333;
-	}
+  box-shadow: 0 8px 8px #333;
+  }
 
 
 .comments {
-	/*background: #d9d9e8;    */
-	/*margin-bottom: 2em;*/
-	/*max-width: 450px;*/
-	min-width: 450px;
-    min-height: 5px;
-    overflow-x: hidden;
-    /*padding: 10px 25px 1px 50px;*/
-	text-align: left;
-	vertical-align: top;
-	width: 100%;
+  /*background: #d9d9e8;    */
+  /*margin-bottom: 2em;*/
+  /*max-width: 450px;*/
+  min-width: 450px;
+  min-height: 5px;
+  overflow-x: hidden;
+  text-align: left;
+  vertical-align: top;
+  width: 100%;
  }
     .comments p {
-		color: #A2D5E0;
-		max-width: 43em;
-		margin: 0;
-	    }
-	.comments pre {
+      color: #A2D5E0;
+      max-width: 43em;
+      margin: 0;
+      }
+  .comments pre {
         margin: 15px 0 15px;
         padding-left: 15px;
         }
-	.comments p tt, .comments p code {
-	    background: #f8f8ff;
-        border: 1px solid #dedede;
-        font-size: 12px;
-	    padding: 0 0.2em;
-	    }
+  .comments p tt, .comments p code {
+    background: #f8f8ff;
+    border: 1px solid #dedede;
+    font-size: 12px;
+    padding: 0 0.2em;
+    }
 
 
 pre, tt, code {
     color: #f9f8f9;
     font-size: 12px; line-height: 18px;
     font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
-        margin: 0; padding: 0;
+    margin: 0; padding: 0;
     }
+
+#main {
+  display: block;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+  width: 1024px;
+  }
 
 #content {
-	/*width: 600px;*/
-	margin: 100px auto 0 280px;
-	position: relative;
-	z-index: 10;
-	}
-
-#index {
-    border-right: 1px solid #80E6FD;
-    float: left;
-    height: 100%;
-    margin-right: 20px;
-    overflow: scroll;
+  background: #4B494B;
+  display: block;
+  margin: 0 auto 0 280px;
+  position: relative;
+  width: 648px;
+  z-index: 10;
+  }
+  h3.title {
+    background: #000;
+    color: #fff;
+    padding: 5px 0 5px 20px;
     position: fixed;
     top: 0;
-    width: 200px;
+    width: 628px;
+    z-index: 50;
+    }
+
+.container {
+  display: block;
+  margin-left: 20px;
+  margin-top: 50px;
+  position: relative;
+  height: 100%;
+  }
+
+#index {
+    background: #4B494B;
+    /*border-right: 1px solid #80E6FD;*/
+    float: left;
+    height: 100%;
+    /*margin-right: 20px;*/
+    margin-right: 18px;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    /*width: 200px;*/
+    width: 262px  ;
     z-index: 20;
     }
+    #index .indexHeader {
+      background: #000;
+      color: #fff;
+      padding: 5px 0 5px 20px;
+      position: fixed;
+      top: 0;
+      width: 227px;
+      }
+
     #index ul {
         list-style: none;
-        margin-top: 100px;
+        margin-top: 50px;
+        padding: 0;
         }
-        #index ul .indexHeader {
-            color: #80e6fd;
-            }
+        #index li {
+          /*margin-left: 10px;*/
+          }
         #index ul a {
             color: #f9f8f9;
+            display: block;
+            padding-left: 20px;
             text-decoration: none;
+            width: 100%;
             }
+            #index ul a:hover {
+              background: #eb2d7c;
+
+              }
 
 div.code {
-	margin: 0.5em 0 0.5em 50px;
-	}
-	
+  margin: 0.5em 0 0.5em 50px;
+  }
+  
 .section {
-	margin-top: 1em;
-	}
+  margin-top: 1em;
+  }
+
+.clearfix {
+  zoom: 1;
+  }
+  .clearfix:before, .clearfix:after {
+    display: table;
+    content: "";
+    zoom: 1;
+    }
+  .clearfix:after {
+    clear: both;
+    }
 
 
 /*---------------------- 10Col Grid 1k grid system -----------------------------*/
@@ -136,21 +203,21 @@ div.code {
 .grid_9 {width: 700px;}
 .grid_10 {width: 780px;}
 .column { 
-	margin: 0 10px 0 10px;
+  margin: 0 10px 0 10px;
     overflow: hidden;
     float: left;
     display: inline;
-	}
+  }
 .row {
-	width: 800px;
+  width: 800px;
     margin: 0 auto;
     overflow: hidden;
-	}
+  }
 .row .row {
-	margin: 0 -10px 0 -10px;
+  margin: 0 -10px 0 -10px;
     width: auto;
     display: inline-block;
-	}
+  }
 
 /*---------------------- Syntax Highlighting -----------------------------*/
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }

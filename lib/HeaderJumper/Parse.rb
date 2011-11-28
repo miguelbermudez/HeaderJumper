@@ -13,15 +13,14 @@ require_relative "PotionKeyword"
     
     DEFAULT_LAYOUT = "./public/page.erb"
     
-    attr_accessor :keywords, :template, :layout
+    attr_accessor :template, :layout, :master_list_ref
     attr_reader :filename, :sections
     
-    def initialize(filename)
+    def initialize(filename, master_list)
       @filename = filename
       @sections = Array.new
-      @keywords = Array.new
       @layout = File.read(DEFAULT_LAYOUT)
-
+      @master_list_ref = master_list
       parse_file(@filename)
     end
     
@@ -35,10 +34,10 @@ require_relative "PotionKeyword"
       has_code = false
       
       if @filename
-         #get file as one string for class detecting
-         f = File.new(@filename)
-         text = f.read
-         f.close
+        #get file as one string for class detecting
+        f = File.new(@filename)
+        text = f.read
+        f.close
         
         code  =  IO.readlines(@filename)
         code.each_with_index do |line, index|
@@ -53,7 +52,6 @@ require_relative "PotionKeyword"
 
             #docs_text += line.sub(comment_matcher, '') + "\n"
             docs_text += line.sub(comment_matcher, '')
-
           else
             #remove tabs
             #line.gsub!("\t", "")
@@ -61,33 +59,33 @@ require_relative "PotionKeyword"
             #remove newlines
             line.gsub!(/\n+/, "")
 
-            #remove leading whitespace
+            #remove whitespace
             line.gsub!(/$\s+/, "")
             line.gsub!(/^\s+/, "")
 
             line = line.gsub('\t', "").gsub('\n',"").gsub(/\s+1/,"")
 
             has_code = true
-
-            if line.match(/^class\s+([[:word:]]+)/)
-              #puts "CLASS #: #{class_count}"
-              
-              keyword = $1
-              pKeyword = PotionKeyword.new(keyword)
-              pKeyword.origin = @filename.split('/').last
-              pKeyword.is_multi_class_member = true if text.scan(/class/).length > 1
-              
-              #@keywords.push(pKeyword) if @keywords.include?(pKeyword.word) == false
-              @keywords << pKeyword if contains_keyword(pKeyword.word) == false
-              #puts @keywords.inspect + "\n" #debugging
-            end
-
             code_text += line + "\n"
             #code_text += line
           end
-          
-          
+
+          if line.match(/(class|public|private)\s+((?!boost)\w+\s*)(;|:|\{)/)
+            keyword = $2
+            #remove all beginning and trailling whitespace
+            keyword = keyword.gsub(/^\s+/, "").gsub(/\s+$/, "")
+
+            pKeyword = PotionKeyword.new(keyword)
+            pKeyword.origin = @filename.split('/').last
+            #puts "\nChecking #{pKeyword.word}..." #debugging
+            if @master_list_ref.contains_keyword(keyword) == false
+              @master_list_ref.keywords << pKeyword 
+              #puts "Added #{keyword} to the master list\n\n" #debugging
+            end
+
+          end
         end
+        save_section(docs_text, code_text)
       end
     end
       
@@ -96,16 +94,6 @@ require_relative "PotionKeyword"
       #puts "DOCS: #{docs}\n\tCODE: #{code}" #debugging
       aSection = Section.new(docs, code)
       @sections << aSection        
-    end
-    
-    def contains_keyword (keyword)
-      @keywords.each do |k|
-        if k.word == keyword
-          return true
-        end
-      end
-      return false
-    end
-    
+    end    
 
   end
