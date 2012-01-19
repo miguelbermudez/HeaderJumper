@@ -70,7 +70,7 @@ require_relative "PotionKeyword"
             code_text += line + "\n"
             #code_text += line
             
-            if line.match(/(class|public|private|struct)\s+((?!boost)\w+\s*)(\s+|;|:|\{)?/)
+            if line.match(/(class|public|private)\s+((?!boost)\w+\s*)(\s+|;|:|\{)?/)
               keyword = $2
               thirdComponent = $3
               #remove all beginning and trailling whitespace
