@@ -28,7 +28,7 @@ class HeaderHtmlPage
   end
 
   def savePage(file)
-    puts "\t\t1ST PASS - FILE TO SAVE: #{file}" #set full path filename
+    #puts "\t\t1ST PASS - FILE TO SAVE: #{file}" #set full path filename
     @master_list_ref.sort
     File.open(file, "w+") do |f|
       f.write(render)
@@ -37,8 +37,8 @@ class HeaderHtmlPage
   
   def keywordPass(html_to_open, html_to_save)
       #puts "\t\tALL KEYWORDS: #{@master_list_ref.keywords.inspect}"
-      puts "\t\t\t+ HTML FILE TO OPEN: #{html_to_open}"
-      puts "\t\t\t\t- KEYWORD_HTML TO SAVE: #{html_to_save}\n"
+      #puts "\t\t\t+ HTML FILE TO OPEN: #{html_to_open}"
+      #puts "\t\t\t\t- KEYWORD_HTML TO SAVE: #{html_to_save}\n"
       #@master_list_ref.print_keywords
 
       all_keywords = @master_list_ref.keywords

@@ -34,6 +34,7 @@ require_relative "PotionKeyword"
       has_code = false
       
       if @filename
+        #puts "FILE: #{@filename}" #debugging
         #get file as one string for class detecting
         f = File.new(@filename)
         text = f.read
@@ -68,23 +69,25 @@ require_relative "PotionKeyword"
             has_code = true
             code_text += line + "\n"
             #code_text += line
-          end
+            
+            if line.match(/(class|public|private|struct)\s+((?!boost)\w+\s*)(\s+|;|:|\{)?/)
+              keyword = $2
+              thirdComponent = $3
+              #remove all beginning and trailling whitespace
+              keyword = keyword.gsub(/^\s+/, "").gsub(/\s+$/, "")
 
-          if line.match(/(class|public|private)\s+((?!boost)\w+\s*)(;|:|\{)/)
-            keyword = $2
-            #remove all beginning and trailling whitespace
-            keyword = keyword.gsub(/^\s+/, "").gsub(/\s+$/, "")
-
-            pKeyword = PotionKeyword.new(keyword)
-            pKeyword.origin = @filename.split('/').last
-            #puts "\nChecking #{pKeyword.word}..." #debugging
-            if @master_list_ref.contains_keyword(keyword) == false
-              @master_list_ref.keywords << pKeyword 
-              #puts "Added #{keyword} to the master list\n\n" #debugging
+              pKeyword = PotionKeyword.new(keyword)
+              pKeyword.origin = @filename.split('/').last
+              #puts "\tChecking #{pKeyword.word}..." #debugging
+              if @master_list_ref.contains_keyword(keyword) == false && thirdComponent != ";" && keyword.length > 1
+                @master_list_ref.keywords << pKeyword 
+                #puts "\tMatched Line: #{line}" #debugging
+                #puts "\tAdded #{keyword} to the master list\n\n" #debugging
+              end
             end
-
           end
         end
+
         save_section(docs_text, code_text)
       end
     end
