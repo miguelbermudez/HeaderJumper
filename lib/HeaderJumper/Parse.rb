@@ -56,6 +56,7 @@ require_relative "PotionKeyword"
           else
             #remove tabs
             #line.gsub!("\t", "")
+            line.gsub!("\t", " ")
 
             #remove newlines
             line.gsub!(/\n+/, "")
